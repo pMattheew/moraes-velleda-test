@@ -1,0 +1,20 @@
+tasks:
+  - name: Vite
+    init: | 
+      npm install
+      composer install
+      gp sync-done dependencies
+    command: npm run dev
+
+  - name: Laravel
+    init: gp sync-await dependencies
+    command: npm run laravel.host
+    openMode: split-right
+
+ports:
+  - name: Vite Server
+    port: 5173
+    visibility: public
+  - name: Laravel Server
+    port: 8000
+    onOpen: open-browser

@@ -2,6 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "vite",
+        "laravel": "php artisan serve",
+        "laravel.host": "php artisan serve --host=0.0.0.0",
         "build": "vite build"
     },
     "devDependencies": {
