@@ -12,6 +12,9 @@ module.exports = {
     ],
 
     theme: {
+        fontFamily: {
+            title: ['Arvo', ...defaultTheme.fontFamily.serif]
+        },
         extend: {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
