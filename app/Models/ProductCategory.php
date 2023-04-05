@@ -9,13 +9,11 @@ class ProductCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category', 'description'];
-
-    public static $categories = ['appetizers', 'main', 'desserts'];
+    protected $fillable = ['category_name', 'description'];
 
     public function setCategoryAttribute($value)
     {
-        $this->attributes['category'] = strtolower($value);
+        $this->attributes['category_name'] = strtolower($value);
     }
 
     public function getCategoryAttribute($value)

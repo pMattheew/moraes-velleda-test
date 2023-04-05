@@ -14,15 +14,15 @@ class ProductCategoriesSeeder extends Seeder
     {
         $categories = [
             [
-                'category' => 'appetizers',
+                'category_name' => 'appetizers',
                 'description' => 'Delicious and healthy appetizers to start your meal'
             ],
             [
-                'category' => 'main',
+                'category_name' => 'main',
                 'description' => 'Tasty and satisfying main courses for any occasion'
             ],
             [
-                'category' => 'desserts',
+                'category_name' => 'desserts',
                 'description' => 'Guilt-free desserts made with natural ingredients.'
             ]
         ];
