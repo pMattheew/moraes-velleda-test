@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
 
-    Route::patch('/user/update-role', [UserController::class, 'update_role'])->name('user.update-role');
+    Route::patch('/user/update-role', [RegisteredUserController::class, 'update_role'])->name('user.update-role');
 });
 
 require __DIR__ . '/auth.php';

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -48,5 +49,19 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    /**
+     * Update the specified resource's role in storage.
+     */
+    public function update_role(Request $request)
+    {
+        $user = $request->user();
+
+        $user->role = 'admin';
+
+        $user->save();
+
+        return Redirect::route('profile.edit');
     }
 }
