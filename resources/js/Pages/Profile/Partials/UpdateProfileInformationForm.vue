@@ -3,7 +3,8 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import { ref, computed } from 'vue'
+import { Link, useForm, usePage, router } from '@inertiajs/vue3';
 
 defineProps({
     mustVerifyEmail: {
@@ -14,12 +15,18 @@ defineProps({
     },
 });
 
-const user = usePage().props.auth.user;
+const user = computed(() => usePage().props.auth.user);
+
+const roleUpdated = ref(false)
 
 const form = useForm({
-    name: user.name,
-    email: user.email,
+    name: user.value.name,
+    email: user.value.email,
 });
+
+const updateRole = () => router.patch(route('user.update-role'), user.value, {
+    onSuccess: () => roleUpdated.value = true
+})
 </script>
 
 <template>
@@ -87,9 +94,12 @@ const form = useForm({
 
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
-
+                <PrimaryButton v-if="user.role !== 'admin'" :disabled="form.processing" type="button" @click="updateRole">Become administrator</PrimaryButton>
                 <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
                     <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                </Transition>
+                <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
+                    <p v-if="roleUpdated" class="text-sm text-gray-600">You're now an administrator!</p>
                 </Transition>
             </div>
         </form>
