@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -13,28 +11,36 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return response()->json([
+            'status' => true,
+            'data' => $users
+        ], 200);
     }
 
     /**
-     * Update the specified resource's role in storage.
+     * Display the specified resource.
      */
-    public function update_role(Request $request)
+    public function show(string $id)
     {
-        $user = $request->user();
+        $user = User::findOrFail($id);
 
-        $user->role = 'admin';
-
-        $user->save();
-
-        return Redirect::route('profile.edit');
+        return response()->json([
+            'status' => true,
+            'data' => $user
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return response(null, 204);
     }
 }
